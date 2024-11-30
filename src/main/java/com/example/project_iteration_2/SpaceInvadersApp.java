@@ -55,7 +55,7 @@ public class SpaceInvadersApp extends Application {
     private static final long THRESHOLD = 100_000_000L; // 200 ms
     private long lastMoveNanos;
 
-    private Sprite player = new Sprite(300, 750, 40, 40, "player", "file:src\\main\\resources\\images\\player.png"); // Player image
+    private Sprite player = new Sprite(300, 750, 40, 40, "player", getClass().getResource("/images/player.png").toExternalForm()); // Player image
 
     private Pane root = new Pane();
 
