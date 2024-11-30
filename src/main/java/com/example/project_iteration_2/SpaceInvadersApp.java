@@ -118,7 +118,10 @@ public class SpaceInvadersApp extends Application {
         levelText.setText("LEVEL: " + playerLevel);
         scoreText.setText("SCORE: " + playerScore);
 
-        t += 0.016;
+        // Delta time  is the time between frames
+        double deltaTime = 0.016;
+        // Increase the time counter
+        t += deltaTime;
 
         if (player.lives <= 0) {
             gameOver = true;
@@ -282,8 +285,14 @@ public class SpaceInvadersApp extends Application {
                         case A:
                             player.moveLeft();
                             break;
+                        case W:
+                            player.moveUp();
+                            break;
                         case D:
                             player.moveRight();
+                            break;
+                        case S:
+                            player.moveDown();
                             break;
                         case SPACE:
                             shoot(player);
@@ -301,14 +310,21 @@ public class SpaceInvadersApp extends Application {
         }
     }
 
+    /***
+     *  Sprite class：
+     *  This class represents a sprite in the game.
+     *  A sprite can be any entity in the game, such as the player, enemies, or bullets.
+     *  It contains methods to move the sprite around the screen and handle various game mechanics like collisions.
+     */
     private static class Sprite extends ImageView {
         boolean dead = false;
         int lives = 3;
         final String type;
+        private double playerSpeed = 20; // To control the player speed.
+
 
         Sprite(int x, int y, int w, int h, String type, String imagePath) {
             super(new Image(imagePath));
-
             this.type = type;
             setTranslateX(x);
             setTranslateY(y);
@@ -316,21 +332,21 @@ public class SpaceInvadersApp extends Application {
             setFitHeight(h);
         }
 
-        void moveLeft() { if (getTranslateX()-5>0) {
-            setTranslateX(getTranslateX() - 5);
+        void moveLeft() { if (getTranslateX()-playerSpeed>0) {
+            setTranslateX(getTranslateX() - playerSpeed);
         }
         }
 
-        void moveRight() { if (getTranslateX()+5<600-40) {
-            setTranslateX(getTranslateX() + 5);
+        void moveRight() { if (getTranslateX()+playerSpeed<600-40) {
+            setTranslateX(getTranslateX() + playerSpeed);
         }
         }
 
-        void moveUp() { setTranslateY(getTranslateY() - 5);
+        void moveUp() { setTranslateY(getTranslateY() - playerSpeed);
         }
 
         void moveDown() {
-            setTranslateY(getTranslateY() + 5);
+            setTranslateY(getTranslateY() + playerSpeed);
         }
     }
 
